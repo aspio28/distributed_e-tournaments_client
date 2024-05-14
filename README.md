@@ -1,2 +1,2 @@
-# distributed_e-tournaments_client
+# E-tournaments Client
 A client for a tournament organization system
