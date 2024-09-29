@@ -55,7 +55,13 @@
                 </Column>
                 <Column field="type" header="Tipo de jugador">
                   <template #editor="{ data, field}">
-                    <InputText v-model="data[field]" autofocus fluid />
+                    <Select
+                        v-model="data[field]"
+                        :options="availableTypes"
+                        optionLabel="name"
+                        :placeholder=data[field]
+                        class="w-full"
+                      />
                   </template>
                 </Column>
                 <Column class="w-24 !text-end">
@@ -79,12 +85,14 @@
 
         <section class="flex w-full justify-end gap-x-3">
           <Button size="small" type="submit" label="Crear" />
+          <RouterLink to="/">
           <Button
             size="small"
             type="button"
             label="Atrás"
             severity="secondary"
           />
+          </RouterLink>
         </section>
       </form>
     </div>
@@ -100,6 +108,7 @@ import { type Participant } from "../helpers/participants";
 import { useToast } from "primevue/usetoast";
 import { useTourStore } from "../stores/tourStore";
 import router from "@/router";
+import type { ParticipantType } from "../helpers/participants";
 
 const store = useTourStore();
 
@@ -107,6 +116,12 @@ const typesAvailable = [
   { name: "Tipo 1" },
   { name: "Tipo 2" },
   { name: "Tipo 3" },
+];
+
+const availableTypes: ParticipantType[] = [
+  { name: "Minimax" },
+  { name: "Random" },
+  { name: "Backtrack" },
 ];
 
 const toast = useToast();
@@ -161,7 +176,10 @@ async function handleSubmit() {
 
 const onCellEditComplete = (event: any) => {
     let { data, newValue, field } = event;
-      if (newValue.trim().length > 0) data[field] = newValue;
-      else event.preventDefault();
+    if(field == 'type') {
+      newValue = newValue.name
+    }
+    if (newValue.trim().length > 0) data[field] = newValue;
+    else event.preventDefault();
 }
 </script>

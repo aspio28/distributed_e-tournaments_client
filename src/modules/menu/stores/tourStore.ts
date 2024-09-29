@@ -5,7 +5,7 @@ export const useTourStore = defineStore("tour", {
   state: () => ({
     getTours: [
       {
-        id: 0,
+        id: '0',
         title: "Torneo 0",
         type: "Todos vs todos",
         participants: [{
@@ -25,7 +25,7 @@ export const useTourStore = defineStore("tour", {
         actual_state: "Comenzado",
       },
       {
-        id: 1,
+        id: '1',
         title: "Torneo 1",
         type: "Grupos y cruces",
         participants: [{
@@ -45,7 +45,7 @@ export const useTourStore = defineStore("tour", {
         actual_state: "Comenzado",
       },
       {
-        id: 2,
+        id: '2',
         title: "Torneo 2",
         type: "1 vs todos",
         participants: [{
@@ -65,7 +65,7 @@ export const useTourStore = defineStore("tour", {
         actual_state: "Finalizado",
       },
       {
-        id: 3,
+        id: '3',
         title: "Torneo 3",
         type: "Todos vs todos",
         participants: [{
@@ -85,7 +85,7 @@ export const useTourStore = defineStore("tour", {
         actual_state: "Pendiente",
       },
       {
-        id: 4,
+        id: '4',
         title: "Torneo 4",
         type: "Grupos y cruces",
         participants: [{
@@ -110,6 +110,9 @@ export const useTourStore = defineStore("tour", {
     tours(state) {
       return state.getTours;
     },
+    tour_by_id: (state) => {
+      return(tourId: string) => state.getTours.find(tour => tour.id === tourId)
+    }
   },
   actions: {
     async setTour(new_title: any, new_type: any, new_participants: any) {
@@ -121,7 +124,7 @@ export const useTourStore = defineStore("tour", {
       else {
         const new_id = this.getTours.length
         let new_tour = {
-          id: new_id,
+          id: `${new_id}`,
           title: new_title,
           type: new_type,
           participants: new_participants,
@@ -131,7 +134,7 @@ export const useTourStore = defineStore("tour", {
         return true
       }
     },
-    async deleteTour(id: number) {
+    async deleteTour(id: string) {
       const index = await this.getTours.findIndex(tour => tour.id === id)
 
       if(index != -1) {
@@ -139,6 +142,22 @@ export const useTourStore = defineStore("tour", {
         return true;
       }
       else return false;
+    },
+    async editTour(id: string, new_title: string, new_participants: any) {
+      const index = await this.getTours.findIndex(tour => tour.id === id)
+      const actual_tour = this.getTours[index]
+      let edited_tour = {
+        id: id,
+        title: new_title,
+        type: actual_tour.type,
+        participants: new_participants,
+        actual_state: actual_tour.actual_state
+      }
+      if(index != -1) {
+        await this.getTours.splice(index, 1, edited_tour)
+        return true
+      }
+      else return false
     }
   },
 });

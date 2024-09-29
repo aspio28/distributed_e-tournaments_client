@@ -3,19 +3,19 @@
   <Toast class="cursor-default" />
   <ConfirmPopup class="cursor-default" />
 
-  <div class="flex justify-between my-8 px-8">
+  <div class="flex justify-between my-8 px-24">
     <IconField class="flex items-center gap-2">
       <InputIcon class="pi pi-search" />
       <InputText placeholder="Search" type="text" class="w-[400px] sm:w-auto" />
     </IconField>
 
-    <RouterLink to="/create">
+    <RouterLink to="/tourttt/create">
       <Button icon="pi pi-plus" label="Añadir torneo" />
     </RouterLink>
   </div>
 
   <div
-    class="container mx-auto px-6 mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0"
+    class="container mx-auto px-20 mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0"
   >
     <div v-for="tour in store.getTours" :key="tour.id" class="group relative">
       <div
@@ -40,13 +40,30 @@
           <template #footer>
             <div class="flex gap-4 mt-1">
               <Button
+                v-if="tour.actual_state == 'Finalizado'"
                 label="Resultados"
                 icon="pi pi-info-circle"
                 severity="secondary"
                 outlined
                 class="w-80"
               />
-              <Button icon="pi pi-cog" class="w-full" />
+              <Button
+                v-else-if="tour.actual_state == 'Pendiente'"
+                @click="router.push({ name: 'gestion', params: { id: tour.id }})"
+                label="Gestionar"
+                icon="pi pi-cog"
+                severity="secondary"
+                outlined
+                class="w-80"
+              />
+              <Button
+                v-else
+                label="Simular"
+                icon="pi pi-forward"
+                severity="secondary"
+                outlined
+                class="w-80"
+              />
               <Button
                 @click="delete_tour($event, tour)"
                 icon="pi pi-trash"
@@ -72,6 +89,7 @@ import { computed, ref } from "vue";
 import { useToast } from "primevue/usetoast";
 import { useConfirm } from "primevue/useconfirm";
 import { useTourStore } from "../stores/tourStore";
+import router from "@/router";
 
 const toast = useToast();
 const confirm = useConfirm();

@@ -13,9 +13,15 @@ const router = createRouter({
       component: () => import("@/modules/menu/layouts/MenuLayout.vue"),
     },
     {
-      path: "/create",
+      path: "/tourttt/create",
       name: "create",
       component: () => import("@/modules/menu/layouts/CreateLayout.vue"),
+    },
+    {
+      path: "/tourttt/gestion/:id",
+      name: "gestion",
+      component: () => import("@/modules/menu/layouts/GestionLayout.vue"),
+      props: true
     },
   ],
 });
