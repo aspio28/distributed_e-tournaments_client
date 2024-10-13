@@ -174,7 +174,7 @@ async function handleSubmit() {
   }
 }
 
-const onCellEditComplete = (event: any) => {
+const onCellEditComplete = (event) => {
     let { data, newValue, field } = event;
     if(field == 'type') {
       newValue = newValue.name

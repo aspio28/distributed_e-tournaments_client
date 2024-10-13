@@ -6,7 +6,7 @@ export const useTourStore = defineStore("tour", {
     getTours: [
       {
         id: '0',
-        title: "Torneo 0",
+        title: "Glass",
         type: "Todos vs todos",
         participants: [{
           name: 'kaka',
@@ -26,7 +26,7 @@ export const useTourStore = defineStore("tour", {
       },
       {
         id: '1',
-        title: "Torneo 1",
+        title: "Las vegas",
         type: "Grupos y cruces",
         participants: [{
           name: 'kaka',
@@ -46,7 +46,7 @@ export const useTourStore = defineStore("tour", {
       },
       {
         id: '2',
-        title: "Torneo 2",
+        title: "Rally",
         type: "1 vs todos",
         participants: [{
           name: 'kaka',
@@ -66,7 +66,7 @@ export const useTourStore = defineStore("tour", {
       },
       {
         id: '3',
-        title: "Torneo 3",
+        title: "Breaker",
         type: "Todos vs todos",
         participants: [{
           name: 'kaka',
@@ -86,7 +86,7 @@ export const useTourStore = defineStore("tour", {
       },
       {
         id: '4',
-        title: "Torneo 4",
+        title: "M. D. Dragon",
         type: "Grupos y cruces",
         participants: [{
           name: 'kaka',
